@@ -47,19 +47,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
-        File dbFile = myContext.getDatabasePath(DB_NAME);
-        return dbFile.exists();
-//        try {
-//            String myPath = DB_PATH + DB_NAME;
-//            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-//        } catch (SQLException e) {
-//
-//        }
-//
-//        if(checkDB!=null) {
-//            checkDB.close();
-//        }
-//        return checkDB != null ? true: false;
+//        File dbFile = myContext.getDatabasePath(DB_NAME);
+//        return dbFile.exists();
+        try {
+            String myPath = DB_PATH + DB_NAME;
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        } catch (SQLException e) {
+
+        }
+
+        if(checkDB!=null) {
+            checkDB.close();
+        }
+        return checkDB != null ? true: false;
     }
 
     public void createDatabase()  throws IOException {
