@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         super(context, DB_NAME,null, 1);
         this.myContext = context;
-        this.DB_PATH = "/data/data" + context.getPackageName() + "/" + "database";
+        this.DB_PATH = "/data/data/" + context.getPackageName() + "/" + "database";
         Log.e("path 1", DB_PATH);
     }
 
@@ -46,17 +47,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
-        try {
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-        } catch (SQLException e) {
-
-        }
-
-        if(checkDB!=null) {
-            checkDB.close();
-        }
-        return checkDB != null ? true: false;
+        File dbFile = myContext.getDatabasePath(DB_NAME);
+        return dbFile.exists();
+//        try {
+//            String myPath = DB_PATH + DB_NAME;
+//            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+//        } catch (SQLException e) {
+//
+//        }
+//
+//        if(checkDB!=null) {
+//            checkDB.close();
+//        }
+//        return checkDB != null ? true: false;
     }
 
     public void createDatabase()  throws IOException {
